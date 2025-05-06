@@ -1,0 +1,15 @@
+{% extends 'users/layout/home.html' %}
+
+{% block content %}
+<section>
+
+<div>
+    {% include 'users/components/navbar.html' %}
+</div>
+
+
+    <div>
+        <h1 class="text-xl font-bold">Welcome {{user.fname}}</h1>
+    </div>
+</section>
+{% endblock %}
