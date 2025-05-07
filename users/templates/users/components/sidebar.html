@@ -1,0 +1,13 @@
+<div class="w-67 bg-white shadow-lg p-8 justify-between">
+    <h2 class="text-xl font-bold mb-20">Godu</h2>
+    <ul class="space-y-12 text-gray-700">
+       <li class="font-semibold text-black"> <a href="{% url 'dashboard' %}">Dashboard</a></li>
+        <li><a href="{% url 'edit_profile' %}">Profile</a></li>
+        <li> <a href="#">Driver</a></li>
+        <li><a href="#">Payment</a></li>
+       
+    </ul>
+    <div class="mt-40">
+        <button class="w-full text-white bg-gray-800 py-2 rounded"><a href="{% url 'logout' %}" class="hover:text-blue-600">Logout</a></button>
+    </div>
+</div>
