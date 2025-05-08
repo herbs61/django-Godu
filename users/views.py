@@ -113,8 +113,14 @@ def user_login(request):
                 return render(request, 'users/auth/check_email.html')
 
             login(request, user)
+            
+            
+               # ✅ Role-based redirection
+            if user.roles == "admin":
+                return redirect("admin_dashboard")  # replace with your actual URL name
+            else:
             # Change to your homepage or dashboard URL
-            return redirect("dashboard")
+                return redirect("dashboard")
         else:
             messages.error(request, "Invalid email or password")
 
@@ -163,3 +169,11 @@ def edit_profile(request):
         'profile_form': profile_form,
         'password_form': password_form
     })
+    
+    
+    
+@login_required
+def admin_dashboard(request):
+    if request.user.roles != 'admin':
+        return redirect('dashboard')  # Prevent access to admin panel
+    return render(request, 'users/components/admin/dashboard.html')  # Create this template
