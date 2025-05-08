@@ -1,6 +1,6 @@
 from .models import Member
 from django.contrib.sites.shortcuts import get_current_site
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail, EmailMessage
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -8,7 +8,9 @@ from django.utils.encoding import force_bytes, force_str
 from django.template.loader import render_to_string
 from django.contrib.auth.tokens import default_token_generator
 from django.http import HttpResponse
-from .forms import UserRegistrationForm
+from .forms import UserRegistrationForm,ProfileEditForm
+from django.contrib import messages
+from django.contrib.auth.forms import PasswordChangeForm
 from django.utils import timezone
 import traceback
 from django.contrib.auth.decorators import login_required
@@ -111,8 +113,14 @@ def user_login(request):
                 return render(request, 'users/auth/check_email.html')
 
             login(request, user)
+            
+            
+               # ✅ Role-based redirection
+            if user.roles == "admin":
+                return redirect("admin_dashboard")  # replace with your actual URL name
+            else:
             # Change to your homepage or dashboard URL
-            return redirect("dashboard")
+                return redirect("dashboard")
         else:
             messages.error(request, "Invalid email or password")
 
@@ -128,3 +136,44 @@ def user_logout(request):
 @login_required(login_url='login')
 def dashboard(request):
     return render(request, 'users/components/dashboard.html')
+
+
+@login_required(login_url='login')
+def edit_profile(request):
+    user = request.user
+
+    if request.method == 'POST':
+        profile_form = ProfileEditForm(request.POST, request.FILES, instance=user)
+        password_form = PasswordChangeForm(user, request.POST)
+
+        if profile_form.is_valid() and (not request.POST.get('old_password') or password_form.is_valid()):
+            profile_form.save()
+            
+            if request.POST.get('old_password'):
+                password_form.save()
+                update_session_auth_hash(request, password_form.user)
+
+            messages.success(request, 'Your profile has been updated.')
+             # Stay on the same page and show SweetAlert
+            return render(request, 'users/modules/profile/modals/edit.html', {
+                'profile_form': ProfileEditForm(instance=user),
+                'password_form': PasswordChangeForm(user)            
+                })
+        else:
+            messages.error(request, 'Please correct the error(s) below.')
+    else:
+        profile_form = ProfileEditForm(instance=user)
+        password_form = PasswordChangeForm(user)
+
+    return render(request, 'users/modules/profile/modals/edit.html', {
+        'profile_form': profile_form,
+        'password_form': password_form
+    })
+    
+    
+    
+@login_required
+def admin_dashboard(request):
+    if request.user.roles != 'admin':
+        return redirect('dashboard')  # Prevent access to admin panel
+    return render(request, 'users/components/admin/dashboard.html')  # Create this template

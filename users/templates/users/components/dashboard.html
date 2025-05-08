@@ -1,15 +1,71 @@
 {% extends 'users/layout/home.html' %}
 
-{% block content %}
-<section>
 
-<div>
-    {% include 'users/components/navbar.html' %}
-</div>
+<body>
+    {% block content %}
+   
 
+    <section class="flex h-screen">
+       
+            {% include "users/components/sidebar.html" %}
+      
+        <div class="flex flex-col w-full">
+            {% include 'users/components/navbar.html' %}
+       
 
-    <div>
-        <h1 class="text-xl font-bold">Welcome {{user.fname}}</h1>
+  
+        <div class="p-6 auto-overflow">
+            <h1 class="text-xl font-bold">Welcome {{user.fname}}</h1>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                <!-- Total Revenue -->
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-500 text-sm">Total revenue</p>
+                            <h2 class="text-xl font-semibold">$53,900</h2>
+                        </div>
+                        <span class="text-green-600 bg-green-100 px-2 py-1 rounded text-xs">↑ 12%</span>
+                    </div>
+                </div>
+
+                <!-- Projects -->
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-500 text-sm">Projects</p>
+                            <h2 class="text-xl font-semibold">95 / 100</h2>
+                        </div>
+                        <span class="text-red-600 bg-red-100 px-2 py-1 rounded text-xs">↓ 10%</span>
+                    </div>
+                </div>
+
+                <!-- Time Spent (Hrs) -->
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-500 text-sm">Time spent</p>
+                            <h2 class="text-xl font-semibold">1022 / 1300 Hrs</h2>
+                        </div>
+                        <span class="text-green-600 bg-green-100 px-2 py-1 rounded text-xs">↑ 8%</span>
+                    </div>
+                </div>
+
+                <!-- Users -->
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-500 text-sm">Time spent</p>
+                            <h2 class="text-xl font-semibold">101 / 120</h2>
+                        </div>
+                        <span class="text-green-600 bg-green-100 px-2 py-1 rounded text-xs">↑ 2%</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
     </div>
-</section>
+    </section>
+
+</body>
 {% endblock %}

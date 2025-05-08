@@ -33,6 +33,7 @@ class Member(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     email_verified_at = models.DateTimeField(blank=True, null=True)
     password = models.CharField(max_length=128)
+    profile_picture = models.ImageField(upload_to='profile_pictures/', default='profile_pictures/default.png', blank=True)
     deleted = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

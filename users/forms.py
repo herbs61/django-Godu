@@ -29,3 +29,12 @@ class UserRegistrationForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+
+class ProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = Member
+        fields = ['fname', 'mname', 'lname', 'dob', 'gender', 'email', 'profile_picture']
+        widgets = {
+            'dob': forms.DateInput(attrs={'type': 'date'}),
+        }

@@ -1,0 +1,29 @@
+{% extends 'users/layout/home.html' %}
+
+
+<body>
+    {% block content %}
+   
+
+    <section class="flex h-screen">
+       
+            {% include "users/components/admin/sidebar.html" %}
+      
+        <div class="flex flex-col w-full">
+            {% include 'users/components/navbar.html' %}
+       
+
+  
+        <div class="p-6 auto-overflow">
+            <h1 class="text-xl font-bold">Welcome {{user.fname}}</h1>
+            
+                
+            
+
+        </div>
+
+    </div>
+    </section>
+
+</body>
+{% endblock %}
