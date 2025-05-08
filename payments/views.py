@@ -42,7 +42,7 @@ def create_payment(request):
                     email=request.user.email,
                     amount=int(payment.amount * 100),  # Paystack expects the amount in kobo (smallest unit)
                     reference=payment.reference,
-                    callback_url=f'{settings.SITE_URL}/payment/callback/',  # Your callback URL
+                    callback_url = f"{settings.SITE_URL}/payments/callback",  # Your callback URL
                 )
 
                 if response['status']:
@@ -66,7 +66,8 @@ def create_payment(request):
 def payment_callback(request):
     reference = request.GET.get('reference')
     if not reference:
-        return JsonResponse({'status': 'error', 'message': 'No reference provided'}, status=400)
+        messages.error(request, "No payment reference found.")
+        return redirect('payment')
 
     # Verify the payment using Paystack's API
     paystack = Transaction(api_key=settings.PAYSTACK_SECRET_KEY)
@@ -80,11 +81,14 @@ def payment_callback(request):
                 payment = Payment.objects.get(reference=reference)
                 payment.payment_status = 'completed'
                 payment.save()
-                return JsonResponse({'status': 'Payment Successful'})
+                messages.success(request, "Payment successful.")
+                return redirect('payment')
             except Payment.DoesNotExist:
-                return JsonResponse({'status': 'error', 'message': 'Payment not found'}, status=404)
+                messages.error(request, "Payment record not found.")
+                return redirect('payment')
     
-    return JsonResponse({'status': 'error', 'message': 'Payment failed or was unsuccessful'}, status=400)
+    messages.error(request, "Payment failed or was unsuccessful.")
+    return redirect('payment')
 
 
 
