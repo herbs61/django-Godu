@@ -24,7 +24,10 @@
             </div>
             <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition">Login</button>
         </form>
-
+        <p class="text-sm text-center mt-2">
+            <a href="{% url 'password_reset' %}" class="text-blue-500 hover:underline">Forgot your password?</a>
+        </p>
+        
         <p class="text-center text-sm mt-4">Don't have an account? <a href="{% url 'register' %}" class="text-blue-500">Register</a></p>
     </div>
 
