@@ -179,7 +179,6 @@ PyMySQL==1.1.0
 pyparsing==3.1.0
 pypdf==3.8.1
 pyphen==0.14.0
-pypiwin32==223
 pypng==0.20220715.0
 Pyrebase4==4.7.1
 pytest==7.3.1
@@ -250,7 +249,6 @@ websocket-client==1.5.1
 websockets==11.0.3
 Werkzeug==2.2.2
 whitenoise==6.6.0
-windows-curses==2.3.1
 wrapt==1.15.0
 WTForms==3.0.1
 xhtml2pdf==0.2.11
