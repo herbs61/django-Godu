@@ -53,6 +53,7 @@ def create_payment(request):
 
                 messages.error(request, "An error occurred while initializing payment.")
                 return redirect('payment')
+            
             else:
                 # Handle other payment methods like PayPal, Bank Transfer, etc.
                 messages.info(request, "You selected a different payment method. Proceed with other steps.")

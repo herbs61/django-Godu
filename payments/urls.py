@@ -7,4 +7,5 @@ urlpatterns = [
     path('edit/<int:payment_id>/', views.edit, name='edit'),
     path('delete/<int:payment_id>/', views.delete, name='delete'),
     path('callback/', views.payment_callback, name='payment_callback'),  # Redirect to payment view
+    
 ]
