@@ -1,5 +1,6 @@
-setuptools>=68
-wheel
+setuptools==68.2.2
+wheel==0.41.2
+build==1.0.3
 pip==23.3.2
 alembic==1.8.1
 amqp==5.1.1
