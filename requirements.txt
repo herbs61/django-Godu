@@ -1,5 +1,5 @@
 # Django Core
-Django==4.2
+Django>=4.2.20,<5.0
 
 # Database and ORM
 dj-database-url==2.3.0
