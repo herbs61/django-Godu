@@ -47,3 +47,5 @@ django-renderpdf==4.0.0
 
 # For JS Assets
 django-js-asset==2.1.0
+python-dotenv==1.0.0
+
